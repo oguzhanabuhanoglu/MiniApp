@@ -13,7 +13,7 @@ struct ListRowView: View {
     
     var body: some View {
         HStack {
-            ImagesView(url: data.url)
+            ImagesView(url: data.url, key: "\(data.id)")
                 .frame(width: 75, height: 75)
             
             VStack(alignment: .leading) {

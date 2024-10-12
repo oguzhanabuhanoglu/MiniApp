@@ -11,8 +11,8 @@ struct ImagesView: View {
     
     @StateObject var vm: ImagesViewModel
     
-    init(url: String) {
-        _vm = StateObject(wrappedValue: ImagesViewModel(url: url))
+    init(url: String, key: String) {
+        _vm = StateObject(wrappedValue: ImagesViewModel(url: url, key: key))
     }
     
     var body: some View {
@@ -29,6 +29,6 @@ struct ImagesView: View {
 }
 
 #Preview {
-    ImagesView(url: "https://via.placeholder.com/600/92c952")
+    ImagesView(url: "https://via.placeholder.com/600/92c952", key: "1")
         .frame(width: 55, height: 55)
 }

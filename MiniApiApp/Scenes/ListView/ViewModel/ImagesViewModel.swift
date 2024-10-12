@@ -14,21 +14,23 @@ class ImagesViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var image: UIImage? = nil
     let urlString: String
+    let imageKey: String
     var cancellables = Set<AnyCancellable>()
     
-    let localDataManager = PhotoModelCacheManager.instance
-    //let localDataManager = PhotoModelFileManager.instance
+    //let localDataManager = PhotoModelCacheManager.instance
+    let localDataManager = PhotoModelFileManager.instance
     
     
     
-    init(url: String) {
+    init(url: String, key: String) {
         urlString = url
+        imageKey = key
         downloadImageIfNeeded()
         //downloadImage()
     }
     
     func downloadImageIfNeeded() {
-        if let savedImage = localDataManager.get(key: urlString) {
+        if let savedImage = localDataManager.get(key: imageKey) {
             image = savedImage
             print("cached")
         } else {
@@ -55,7 +57,7 @@ class ImagesViewModel: ObservableObject {
                 guard let self = self,
                       let image = returnedImage else { return }
                 self.image = image
-                self.localDataManager.add(key: urlString, value: image)
+                self.localDataManager.add(key: imageKey, value: image)
             }
             .store(in: &cancellables)
 
